@@ -49,19 +49,6 @@ The power automatically scans for database technology and prominently recommends
 - Highlights database licensing as primary cost driver
 - References AWS SCT and DMS migration tools
 
-### Visualization Standards
-
-All reports include Mermaid.js diagrams (NO ASCII art):
-
-- Current state architecture diagram
-- Target state architecture diagram
-- Dependency graphs
-- Effort distribution pie charts
-- Pathway comparison quadrant charts
-- Migration phase flowcharts
-- Quick wins gantt diagrams
-- Cost comparison XY charts
-
 ### Cost-Benefit Analysis
 
 Uses qualitative terms for flexibility:
@@ -115,58 +102,13 @@ The power will automatically:
 The generated `MODERNIZATION_REPORT.md` includes:
 
 1. **Executive Summary**
-   - Strategic verdict with feasibility score (X/10)
-   - 7 Rs and Gartner TIME classifications
-   - Risk of Inaction table
-   - Key findings pie chart
-
 2. **Visual Architecture State**
-   - Current architecture diagram (Mermaid)
-   - Target architecture diagram (Mermaid)
-   - Dependency graph (Mermaid)
-
 3. **Critical Findings Matrix**
-   - Issue, Area, Impact, Impact If Not Modernized, Priority
-
 4. **Proprietary Dependency Analysis**
-   - Detailed tables with .NET Core status, AWS impact, mitigation
-   - Code migration examples (before/after)
-
 5. **Database Analysis & Migration Opportunity**
-   - Database detection summary
-   - SQL Server → Aurora PostgreSQL migration assessment
-   - T-SQL to PostgreSQL conversion reference
-   - Migration tools recommendations
-
 6. **Recommended Pathways**
-   - 3 pathways ranked by approachability (1-10)
-   - Pathway comparison quadrant chart
-   - Phase flowcharts for each pathway
-   - Effort breakdown tables
-
 7. **Next Steps**
-   - Quick wins (Low complexity)
-   - Strategic initiatives (Medium-High complexity)
-   - Tool recommendations
-
 8. **Cost-Benefit Analysis**
-   - Infrastructure cost comparison (including database licensing)
-   - ROI summary with qualitative assessments
-
-9. **Appendix**
-   - File inventory summary
-   - Complete dependency graph
-   - Migration checklist
-
-## Large Codebase Handling
-
-The power uses incremental scanning to handle large codebases without context overflow:
-
-- Phase 1: Discovery (solution and project files only)
-- Phase 2: Targeted analysis (one project at a time)
-- Phase 3: Selective deep dives (specific files as needed)
-- Uses grep/search to find patterns before reading files
-- Processes in batches of 5-10 files for large codebases
 
 ## Requirements
 
