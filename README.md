@@ -18,10 +18,16 @@ A Kiro Power that provides enterprise-grade .NET codebase modernization analysis
 
 ## What's New (Latest)
 
+### Version 1.2
+- **Professional Advisory Notice**: Executive Summary now includes a mandatory disclaimer that this is a high-level analysis to be interpreted with AWS Modernization Specialists or partners, not acted upon directly
+- **Timeline Disclaimer**: Quick Wins Roadmap now includes a mandatory disclaimer that timelines are for indicative conceptual visualization only, with factors affecting actual timelines (team experience, project priorities, change management, testing requirements, integration complexity, stakeholder availability, technical debt, vendor dependencies)
+- **Removed LOC Estimates**: Solution Structure no longer includes Lines of Code estimates since files are not fully read during analysis
+
+### Version 1.1
 - **Architecture Diagram Color Coding**: Current and target architecture diagrams now color-code individual components by modernization risk (red=blocker, orange=concern, yellow=minor, green=modern)
 - **NuGet License Verification**: Automatically queries NuGet.org Catalog API to verify SPDX license identifiers for all packages
 - **Stored Procedure Analysis**: Database detection now includes total count, complexity categorization (Simple/Medium/Complex), and procedure names
-- **Improved Gantt Charts**: Quick Wins timeline uses relative sequencing only (no specific dates or day/week/month durations)
+- **Improved Gantt Charts**: Quick Wins timeline uses indicative day units with disclaimer
 - **Fixed XYChart Labels**: Cost comparison charts use abbreviated labels to prevent overlap
 - **Removed Appendix Sections**: Streamlined report structure without redundant appendix content
 

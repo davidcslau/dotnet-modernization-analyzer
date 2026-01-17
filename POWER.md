@@ -3,7 +3,7 @@ name: "dotnet-modernization-analyzer"
 displayName: ".NET Modernization Analyzer"
 description: "Enterprise-grade .NET codebase modernization analysis agent that generates comprehensive feasibility reports with visual architecture diagrams, proprietary dependency analysis, and strategic alignment"
 keywords: [".NET", "modernization", "migration", "legacy", "codebase", "assessment", "feasibility", "AWS", "containerization", "microservices", "refactoring", "replatform"]
-version: "1.1"
+version: "1.2"
 ---
 
 # .NET Modernization Analyzer Power
@@ -440,6 +440,10 @@ Generate reports with the following sections:
 
 ## Executive Summary
 
+**MUST include this Professional Advisory Notice at the beginning of the Executive Summary:**
+
+> 📋 **Professional Advisory Notice**: This report provides a high-level technical analysis based on automated codebase scanning and should be interpreted in consultation with AWS Modernization Specialists or authorized AWS Modernization Partners. The findings and recommendations herein are intended to inform strategic planning discussions and should not be acted upon directly without professional guidance. Implementation effectiveness is influenced by numerous factors that cannot be extracted from the codebase alone, including organizational readiness, team dynamics, business constraints, regulatory requirements, and market conditions. We recommend engaging with qualified modernization experts to develop a comprehensive implementation strategy tailored to your specific organizational context.
+
 MUST include ALL of the following with specific data:
 
 - Strategic Verdict table: Overall Feasibility (X/10), 7 Rs Classification, Gartner TIME Model, Recommended Target, Risk Level
@@ -649,23 +653,34 @@ Organized by effort level (NOT timeframes):
 
 Include Mermaid gantt-style diagram showing immediate actions across categories (DevOps, Code Quality, Infrastructure).
 
-**CRITICAL GANTT CHART RULES:**
-- DO NOT use specific dates (no "2024-01-01" or similar)
-- DO NOT use day/week/month durations (no "3d", "2w", "1 month")
-- Use RELATIVE sequencing only with generic task labels
-- Use section headers to group by category, not timeline
+**GANTT CHART TIMELINE DISCLAIMER (MUST INCLUDE IN REPORT):**
+> ⚠️ **Timeline Disclaimer**: The timeline shown in this roadmap is for **indicative conceptual visualization only** and does not represent a precise estimation. Actual timelines will vary significantly based on factors including:
+> - Modernization team experience and skill level
+> - Project priorities and resource allocation
+> - Organizational change management processes
+> - Testing and validation requirements
+> - Integration complexity with existing systems
+> - Stakeholder availability for decisions
+> - Technical debt discovered during implementation
+> - Third-party vendor dependencies
+
+**GANTT CHART RULES:**
+- Use days as indicative units for visualization purposes only
+- Include the timeline disclaimer above in every report
+- Use section headers to group by category
 - Example format:
 ```mermaid
 gantt
-    title Quick Wins Roadmap
+    title Quick Wins Roadmap (Indicative Timeline)
+    dateFormat X
+    axisFormat Day %s
     section DevOps
-    Setup CI/CD Pipeline :a1, 0, 1
-    Configure Docker :a2, after a1, 1
+    Setup CI/CD Pipeline :a1, 0, 3
+    Configure Docker :a2, after a1, 2
     section Code Quality
-    Add Unit Tests :b1, 0, 1
-    Fix Code Analysis :b2, after b1, 1
+    Add Unit Tests :b1, 0, 5
+    Fix Code Analysis :b2, after b1, 3
 ```
-- The numbers (0, 1) represent relative sequence order, NOT days/weeks
 
 Immediate Actions table: Action | Owner | Complexity | Impact
 
@@ -740,8 +755,9 @@ xychart-beta
 
 - **EXHAUSTIVE BY DEFAULT**: Always generate the most comprehensive report possible
 - **$1M/PROJECT QUALITY**: This is elite consulting-grade analysis
-- **EVIDENCE-BASED**: Reference actual files, packages, versions, and line counts found in codebase
-- **QUALITATIVE ASSESSMENTS**: Include LOC estimates, file counts, cost levels (Low/Medium/High/Very High), relative improvements
+- **EVIDENCE-BASED**: Reference actual files, packages, versions found in codebase
+- **QUALITATIVE ASSESSMENTS**: Include file counts, cost levels (Low/Medium/High/Very High), relative improvements
+- **DO NOT ESTIMATE LOC**: Never include Lines of Code (LOC) estimates in Solution Structure or file inventory since we do not read all files to calculate this accurately
 - **CODE EXAMPLES**: Provide before/after code snippets for key migrations
 - **RISK OF INACTION**: For EVERY finding, articulate specific business consequences
 
