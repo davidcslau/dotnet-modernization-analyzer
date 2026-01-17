@@ -101,7 +101,7 @@ YOU MUST FOLLOW THESE DIRECTIVES FOR EVERY ANALYSIS:
 
 ## Bundled MCP Server
 
-This power includes the `fetch` MCP server (configured in `mcp-config.json`) to query NuGet.org API for package license verification. When this power is installed, the MCP server is automatically configured in the user's workspace.
+This power includes the `fetch` MCP server (configured in `mcp.json`) to query NuGet.org API for package license verification. When this power is installed, the MCP server is automatically configured in the user's workspace.
 
 **MCP Configuration** (`mcp-config.json`):
 
@@ -336,11 +336,23 @@ YOU MUST perform comprehensive database detection:
 - Stored procedures: `EXEC`, `sp_`, custom stored procedure calls
 - SQL Server data types: `datetime2`, `nvarchar(max)`, `uniqueidentifier`, `money`
 
+**CRITICAL: Stored Procedure Count & Analysis:**
+- Search for all `.sql` files in the codebase
+- Search for `CREATE PROCEDURE`, `CREATE PROC`, `ALTER PROCEDURE` patterns
+- Search for `EXEC`, `EXECUTE`, `sp_` calls in code files
+- **COUNT the total number of stored procedures**
+- **CATEGORIZE each by complexity:**
+  - Simple (< 50 lines, basic CRUD)
+  - Medium (50-200 lines, cursors, temp tables)
+  - Complex (> 200 lines, dynamic SQL, nested calls)
+- **LIST procedure names** in the Database Detection Summary table
+- This count is ESSENTIAL for migration effort estimation
+
 **If SQL Server is detected, IMMEDIATELY flag as major cost optimization opportunity:**
 - SQL Server licensing costs are typically Very High
 - Aurora PostgreSQL offers High savings potential with no licensing fees
 - Document all SQL Server-specific features that need migration
-- Assess stored procedure complexity and count
+- **Report stored procedure count prominently** - this is a key migration complexity driver
 - Identify T-SQL to PL/pgSQL conversion requirements
 
 ### Step 4: Proprietary Library Deep Dive
@@ -448,12 +460,30 @@ NOTE: This table provides a HIGH-LEVEL summary by area. DO NOT duplicate detaile
 
 ## Visual Architecture State
 
-MUST include BOTH diagrams with full detail:
+MUST include BOTH diagrams with full detail and COMPONENT-LEVEL COLOR CODING:
 
-- Current Architecture Diagram (Mermaid.js) - Show ALL layers: Client, Presentation, Application, Domain, Data, Infrastructure with specific technologies and color-coded problem areas (red for blockers, orange for concerns)
-- Target Architecture Diagram (Mermaid.js) - Show modernized stack with green highlighting for improvements
-- Dependency Graph (Mermaid.js) - Show project references AND NuGet dependencies with color coding
-- STRICTLY FORBID ASCII art - use only Mermaid.js
+**Current Architecture Diagram (Mermaid.js):**
+- Show ALL layers: Client, Presentation, Application, Domain, Data, Infrastructure
+- **CRITICAL: Color-code EACH INDIVIDUAL COMPONENT based on modernization risk:**
+  - 🔴 Red (`style ComponentName fill:#ff6b6b`) - Critical blockers, must modernize
+  - 🟠 Orange (`style ComponentName fill:#ffa94d`) - Concerns, should modernize
+  - 🟡 Yellow (`style ComponentName fill:#ffd43b`) - Minor issues, nice to modernize
+  - 🟢 Green (`style ComponentName fill:#69db7c`) - Already modern, no changes needed
+- Include a legend explaining the color coding
+- Example: If EF6 is a blocker, color the Data Access component red
+
+**Target Architecture Diagram (Mermaid.js):**
+- Show modernized stack with ALL components
+- **Color-code components to show transformation:**
+  - 🟢 Green (`style ComponentName fill:#69db7c`) - Modernized/new components
+  - 🔵 Blue (`style ComponentName fill:#74c0fc`) - AWS managed services
+- Show clear before→after mapping
+
+**Dependency Graph (Mermaid.js):**
+- Show project references AND NuGet dependencies
+- Color-code problematic packages (red for blockers, orange for concerns)
+
+STRICTLY FORBID ASCII art - use only Mermaid.js
 
 ## Critical Findings Matrix
 
@@ -502,8 +532,18 @@ MUST provide EXHAUSTIVE analysis:
 | Database Technology | SQL Server / Oracle / MySQL / Other |
 | Connection String Locations | List of files containing connection strings |
 | Data Access Pattern | EF6 / EF Core / ADO.NET / Dapper / LINQ to SQL |
-| Stored Procedures | Count and complexity assessment |
+| Stored Procedures | **MUST include: Total count, complexity breakdown (Simple/Medium/Complex), list of procedure names** |
 | SQL Server-Specific Features | List of T-SQL features detected |
+
+**CRITICAL: Stored Procedure Analysis Requirements:**
+- Scan for all `.sql` files and inline SQL containing `CREATE PROCEDURE`, `ALTER PROCEDURE`, `EXEC`, `sp_`
+- Count total number of stored procedures
+- Categorize by complexity:
+  - Simple: SELECT/INSERT/UPDATE/DELETE only, < 50 lines
+  - Medium: Multiple statements, cursors, temp tables, 50-200 lines
+  - Complex: Dynamic SQL, nested procedures, > 200 lines
+- List procedure names with their complexity rating
+- This count directly impacts T-SQL → PL/pgSQL migration effort
 
 ### SQL Server → Aurora PostgreSQL Migration (Cost Optimization Opportunity)
 
@@ -607,7 +647,25 @@ Organized by effort level (NOT timeframes):
 
 **Quick Wins (Low Complexity)**
 
-Include Mermaid gantt-style diagram showing immediate actions across categories (DevOps, Code Quality, Infrastructure)
+Include Mermaid gantt-style diagram showing immediate actions across categories (DevOps, Code Quality, Infrastructure).
+
+**CRITICAL GANTT CHART RULES:**
+- DO NOT use specific dates (no "2024-01-01" or similar)
+- DO NOT use day/week/month durations (no "3d", "2w", "1 month")
+- Use RELATIVE sequencing only with generic task labels
+- Use section headers to group by category, not timeline
+- Example format:
+```mermaid
+gantt
+    title Quick Wins Roadmap
+    section DevOps
+    Setup CI/CD Pipeline :a1, 0, 1
+    Configure Docker :a2, after a1, 1
+    section Code Quality
+    Add Unit Tests :b1, 0, 1
+    Fix Code Analysis :b2, after b1, 1
+```
+- The numbers (0, 1) represent relative sequence order, NOT days/weeks
 
 Immediate Actions table: Action | Owner | Complexity | Impact
 
@@ -625,6 +683,21 @@ MUST INCLUDE:
 - Compare: Current (Windows + SQL Server), Replatform (Linux + SQL Server), Replatform (Linux + Aurora PostgreSQL), Replatform (Graviton + Aurora PostgreSQL)
 - Show relative cost levels (Low/Medium/High/Very High)
 - DATABASE MIGRATION IS A PRIMARY COST DRIVER - feature prominently
+
+**CRITICAL XYCHART FORMATTING RULES to prevent label overlap:**
+- Use SHORT abbreviated labels on x-axis (e.g., "Current", "Linux+SQL", "Linux+Aurora", "Graviton")
+- DO NOT use long labels like "Windows + SQL Server" - they will overlap
+- Add a legend or table below the chart to explain abbreviations
+- Example format:
+```mermaid
+xychart-beta
+    title "Monthly Infrastructure Cost Comparison"
+    x-axis ["Current", "Linux+SQL", "Linux+PG", "Graviton+PG"]
+    y-axis "Relative Cost" 0 --> 100
+    bar [100, 75, 45, 30]
+```
+- Keep x-axis labels to MAX 12 characters each
+- Use table below chart for full configuration names
 
 **Cost Comparison Table:**
 
