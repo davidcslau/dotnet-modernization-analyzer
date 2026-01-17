@@ -3,7 +3,7 @@ name: "dotnet-modernization-analyzer"
 displayName: ".NET Modernization Analyzer"
 description: "Enterprise-grade .NET codebase modernization analysis agent that generates comprehensive feasibility reports with visual architecture diagrams, proprietary dependency analysis, and strategic alignment"
 keywords: [".NET", "modernization", "migration", "legacy", "codebase", "assessment", "feasibility", "AWS", "containerization", "microservices", "refactoring", "replatform"]
-version: "1.0"
+version: "1.1"
 ---
 
 # .NET Modernization Analyzer Power
