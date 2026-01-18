@@ -654,7 +654,7 @@ Organized by effort level (NOT timeframes):
 Include Mermaid gantt-style diagram showing immediate actions across categories (DevOps, Code Quality, Infrastructure).
 
 **GANTT CHART TIMELINE DISCLAIMER (MUST INCLUDE IN REPORT):**
-> ⚠️ **Timeline Disclaimer**: The timeline shown in this roadmap is for **indicative conceptual visualization only** and does not represent a precise estimation. Actual timelines will vary significantly based on factors including:
+> ⚠️ **Timeline Disclaimer**: The timeline shown in this roadmap is for **indicative conceptual visualization only** and does not represent a precise estimation. Actual timelines can vary significantly based on factors including:
 > - Modernization team experience and skill level
 > - Project priorities and resource allocation
 > - Organizational change management processes
@@ -673,7 +673,7 @@ Include Mermaid gantt-style diagram showing immediate actions across categories 
 gantt
     title Quick Wins Roadmap (Indicative Timeline)
     dateFormat X
-    axisFormat Day %s
+    axisFormat Week %s
     section DevOps
     Setup CI/CD Pipeline :a1, 0, 3
     Configure Docker :a2, after a1, 2
